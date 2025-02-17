@@ -37,7 +37,9 @@ const Navigation = () => {
         <li>
           <Link
             href="/cabins"
-            className="transition-colors hover:text-accent-400"
+            className={cn("transition-colors hover:text-accent-400", {
+              "text-accent-400": pathname === "/cabins",
+            })}
           >
             Cabins
           </Link>
@@ -45,7 +47,9 @@ const Navigation = () => {
         <li>
           <Link
             href="/about"
-            className="transition-colors hover:text-accent-400"
+            className={cn("transition-colors hover:text-accent-400", {
+              "text-accent-400": pathname === "/about",
+            })}
           >
             About
           </Link>
@@ -53,7 +57,9 @@ const Navigation = () => {
         <li>
           <Link
             href="/account"
-            className="transition-colors hover:text-accent-400"
+            className={cn("transition-colors hover:text-accent-400", {
+              "text-accent-400": pathname.startsWith("/account"),
+            })}
           >
             Guest area
           </Link>

@@ -33,8 +33,8 @@ export default function RootLayout({ children }) {
         )}
       >
         <Header />
-        <div className="grid flex-1 p-4 md:px-8 md:py-12">
-          <main className="mx-auto h-full max-w-7xl">{children}</main>
+        <div className="grid flex-1 p-4 pb-0 md:px-8 md:py-12 md:pb-0">
+          <main className="mx-auto h-full w-full max-w-7xl">{children}</main>
         </div>
       </body>
     </html>
