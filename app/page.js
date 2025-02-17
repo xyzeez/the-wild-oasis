@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 // Assets
@@ -17,12 +18,12 @@ const HomePage = () => {
         <h1 className="w-[10ch] text-5xl font-normal capitalize tracking-tight text-primary-50 md:text-8xl md:tracking-tight">
           Welcome to paradise.
         </h1>
-        <a
+        <Link
           href="/cabins"
           className="bg-accent-500 px-4 py-3 text-lg font-semibold text-primary-800 transition-all hover:bg-accent-600 md:px-8 md:py-6"
         >
           Explore luxury cabins
-        </a>
+        </Link>
       </div>
     </div>
   );

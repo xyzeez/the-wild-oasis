@@ -14,6 +14,8 @@ export const metadata = {
     template: "%s | The Wild Oasis",
     default: "Home | The Wild Oasis",
   },
+  description:
+    "Cozy yet luxurious cabins, located right in the heart of the Italian Dolomites.",
 };
 
 const josefin = Josefin_Sans({
