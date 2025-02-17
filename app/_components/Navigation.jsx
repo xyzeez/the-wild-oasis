@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 // Libraries
@@ -9,6 +10,12 @@ import { cn } from "../_lib/cn";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Close navigation when route changes
+    setOpenNav(false);
+  }, [pathname]);
 
   return (
     <nav className="flex items-center text-base text-primary-100 md:text-xl">
