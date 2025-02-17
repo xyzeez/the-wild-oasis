@@ -11,26 +11,26 @@ const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
 
   return (
-    <nav className="text-base text-primary-100 md:text-xl flex items-center">
+    <nav className="flex items-center text-base text-primary-100 md:text-xl">
       <button onClick={() => setOpenNav(!openNav)}>
         {!openNav ? (
-          <Bars3Icon className="size-8 block z-20 md:hidden" />
+          <Bars3Icon className="block size-8 md:hidden" />
         ) : (
-          <XMarkIcon className="size-8 block z-20 md:hidden" />
+          <XMarkIcon className="block size-8 md:hidden" />
         )}
       </button>
       <ul
         className={cn(
-          "hidden text-primary-100 items-center z-20",
+          "z-20 hidden items-center text-primary-100",
           openNav &&
-            "flex flex-col gap-4 absolute bg-primary-950 px-4 py-10 right-4 top-[calc(100%+1rem)] left-4 rounded-md border-primary-900 border",
-          "md:static md:gap-16 md:flex md:flex-row md:p-0 md:border-none md:bg-transparent"
+            "absolute left-4 right-4 top-[calc(100%+1rem)] flex flex-col gap-4 rounded-md border border-primary-900 bg-primary-950 px-4 py-10",
+          "md:static md:flex md:flex-row md:gap-16 md:border-none md:bg-transparent md:p-0"
         )}
       >
         <li>
           <Link
             href="/cabins"
-            className="hover:text-accent-400 transition-colors"
+            className="transition-colors hover:text-accent-400"
           >
             Cabins
           </Link>
@@ -38,7 +38,7 @@ const Navigation = () => {
         <li>
           <Link
             href="/about"
-            className="hover:text-accent-400 transition-colors"
+            className="transition-colors hover:text-accent-400"
           >
             About
           </Link>
@@ -46,20 +46,12 @@ const Navigation = () => {
         <li>
           <Link
             href="/account"
-            className="hover:text-accent-400 transition-colors"
+            className="transition-colors hover:text-accent-400"
           >
             Guest area
           </Link>
         </li>
       </ul>
-      <div
-        onClick={() => setOpenNav(false)}
-        className={cn(
-          "absolute z-10 w-screen blur-sm hidden h-[calc(100vh-93px)]  top-full inset-x-0 opacity-80 bg-primary-950",
-          openNav && "block",
-          "md:hidden"
-        )}
-      />
     </nav>
   );
 };

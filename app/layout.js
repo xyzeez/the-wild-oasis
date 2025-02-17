@@ -27,12 +27,12 @@ export default function RootLayout({ children }) {
       <body
         className={cn(
           josefin.className,
-          "bg-primary-950  min-h-screen flex flex-col"
+          "relative flex min-h-screen flex-col bg-primary-950"
         )}
       >
         <Header />
-        <div className="flex-1 p-4 md:px-8 md:py-12">
-          <main className="max-w-7xl mx-auto">{children}</main>
+        <div className="grid flex-1 p-4 md:px-8 md:py-12">
+          <main className="mx-auto h-full max-w-7xl">{children}</main>
         </div>
       </body>
     </html>
