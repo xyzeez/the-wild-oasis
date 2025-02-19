@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-x-24 gap-y-16 text-lg text-primary-200 md:gap-y-32">
+    <div className="flex flex-col gap-x-24 gap-y-16 pb-4 text-lg text-primary-200 md:gap-y-32 md:pb-8">
       <div className="flex flex-col-reverse gap-x-24 gap-y-16 md:flex-row md:gap-y-32">
         <div>
           <h1 className="mb-10 text-4xl font-medium text-accent-400">

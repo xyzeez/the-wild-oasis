@@ -1,3 +1,6 @@
+// Services
+import { getCabins } from "@/app/_services/cabinService";
+
 // Components
 import CabinCard from "@/app/_components/CabinCard";
 
@@ -5,11 +8,11 @@ export const metadata = {
   title: "Cabins",
 };
 
-export default function CabinsPage() {
-  const cabins = [];
+export default async function CabinsPage() {
+  const cabins = await getCabins();
 
   return (
-    <div>
+    <div className="pb-4 md:pb-8">
       <h1 className="text-4xl font-medium text-accent-400">
         Our Luxury Cabins
       </h1>

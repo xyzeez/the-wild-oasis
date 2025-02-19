@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 // Libraries
-import { cn } from "../_lib/cn";
+import { cn } from "@/app/_lib/cn";
 
 // Components
 import SignOutButton from "./SignOutButton";

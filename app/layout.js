@@ -4,10 +4,10 @@ import "./globals.css";
 import { Josefin_Sans } from "next/font/google";
 
 // Components
-import Header from "./_components/Header";
+import Header from "@/app/_components/Header";
 
 // Libraries
-import { cn } from "./_lib/cn";
+import { cn } from "@/app/_lib/cn";
 
 export const metadata = {
   title: {

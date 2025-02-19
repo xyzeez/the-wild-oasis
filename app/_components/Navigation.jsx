@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 // Libraries
-import { cn } from "../_lib/cn";
+import { cn } from "@/app/_lib/cn";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);

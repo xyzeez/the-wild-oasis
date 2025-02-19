@@ -1,10 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 // Components
 import Logo from "@/app/_components/Logo";
 import Navigation from "@/app/_components/Navigation";
-import { usePathname } from "next/navigation";
-import { cn } from "../_lib/cn";
+
+// Libraries
+import { cn } from "@/app/_lib/cn";
 
 const Header = () => {
   const pathname = usePathname();
