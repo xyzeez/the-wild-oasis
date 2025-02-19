@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 // Services
 import supabase from "./supabase";
 
@@ -35,13 +37,13 @@ export const getCabin = async (id) => {
 
     if (error) {
       console.error("Supabase error:", error);
-      throw new Error(`Cabin could not be loaded: ${error.message}`);
+      throw new Error(error.message);
     }
 
     return cabin;
   } catch (err) {
     console.error("getCabin error:", err);
-    throw new Error(`Failed to fetch cabin: ${err.message}`);
+    notFound();
   }
 };
 

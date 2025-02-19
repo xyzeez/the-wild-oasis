@@ -11,17 +11,18 @@ import {
 import { getCabin } from "@/app/_services/cabinService";
 
 export async function generateMetadata({ params }) {
-  const { name } = await getCabin(params.cabinId);
+  const { name, description } = await getCabin(params.cabinId);
 
   return {
-    title: `Cabin ${name || "Cabin"}`,
+    title: `Cabin ${name}`,
+    description:
+      description ||
+      `Discover Cabin ${name} at The Wild Oasis - Your perfect getaway in the heart of the Dolomites.`,
   };
 }
 
 export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
-
-  if (!cabin) return null;
 
   const { name, maxCapacity, image, description } = cabin;
 
