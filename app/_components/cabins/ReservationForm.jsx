@@ -1,20 +1,24 @@
 "use client";
 
+import Link from "next/link";
+
 // Context
 import { useReservation } from "@/src/context/ReservationContext";
 
-const ReservationForm = ({ cabin }) => {
+const ReservationForm = ({ cabin, user }) => {
   const { range } = useReservation();
   const { maxCapacity } = cabin;
 
   return (
     <div className="">
       <div className="flex items-center justify-between bg-primary-800 px-3 py-2 text-primary-300 lg:px-16">
-        <p className="text-sm lg:text-lg">Logged in as</p>
+        <p className="flex flex-wrap gap-x-2 gap-y-1 text-sm lg:text-lg">
+          Logged in as:
+          <Link href="/account" className="italic text-accent-400 underline">
+            {user.email}
+          </Link>
+        </p>
       </div>
-      <p className="text-sm lg:text-lg">
-        {String(range.from)} to {String(range.to)}
-      </p>
       <form className="flex flex-col gap-5 bg-primary-900 px-5 py-8 text-sm lg:px-16 lg:py-10 lg:text-lg">
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>

@@ -1,7 +1,11 @@
+// Services
+import { auth } from "@/src/services/auth";
+
 // Components
 import SelectCountry from "./SelectCountry";
 
-const UpdateProfileForm = () => {
+const UpdateProfileForm = async () => {
+  const session = await auth();
   const countryFlag = "pt.jpg";
   const nationality = "portugal";
 
@@ -11,6 +15,7 @@ const UpdateProfileForm = () => {
         <label>Full name</label>
         <input
           disabled
+          value={session?.user?.name}
           className="w-full rounded-sm bg-primary-200 px-3 py-2 text-primary-800 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400 md:px-5 md:py-3"
         />
       </div>
@@ -18,6 +23,7 @@ const UpdateProfileForm = () => {
         <label>Email address</label>
         <input
           disabled
+          value={session?.user?.email}
           className="w-full rounded-sm bg-primary-200 px-3 py-2 text-primary-800 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400 md:px-5 md:py-3"
         />
       </div>
