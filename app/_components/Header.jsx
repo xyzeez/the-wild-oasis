@@ -7,7 +7,7 @@ import Logo from "@/app/_components/Logo";
 import Navigation from "@/app/_components/Navigation";
 
 // Libraries
-import { cn } from "@/app/_lib/cn";
+import cn from "@/src/lib/cn";
 
 const Header = () => {
   const pathname = usePathname();
