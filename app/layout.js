@@ -3,11 +3,14 @@ import "./globals.css";
 // Fonts
 import { Josefin_Sans } from "next/font/google";
 
+// Context
+import { ReservationProvider } from "@/src/context/ReservationContext";
+
 // Components
 import Header from "@/app/_components/Header";
 
 // Libraries
-import { cn } from "@/app/_lib/cn";
+import cn from "@/src/lib/cn";
 
 export const metadata = {
   title: {
@@ -34,7 +37,9 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <div className="grid flex-1 p-4 pb-0 md:px-8 md:py-12 md:pb-0">
-          <main className="mx-auto h-full w-full max-w-7xl">{children}</main>
+          <main className="mx-auto h-full w-full max-w-7xl">
+            <ReservationProvider>{children}</ReservationProvider>
+          </main>
         </div>
       </body>
     </html>

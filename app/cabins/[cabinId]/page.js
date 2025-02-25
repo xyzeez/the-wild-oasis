@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,7 +9,12 @@ import {
 } from "@heroicons/react/24/solid";
 
 // Services
-import { getCabin } from "@/app/_services/cabinService";
+import { getCabin } from "@/src/services/cabinService";
+
+// Components
+import TextExpander from "@/app/_components/TextExpander";
+import Reservation from "@/app/_components/cabins/Reservation";
+import Spinner from "@/app/_components/Spinner";
 
 export async function generateMetadata({ params }) {
   const { name, description } = await getCabin(params.cabinId);
@@ -49,7 +55,7 @@ export default async function Page({ params }) {
             Cabin {name}
           </h3>
           <p className="mb-5 text-lg text-primary-300 md:mb-10">
-            {description}
+            <TextExpander>{description}</TextExpander>
           </p>
           <ul className="mb-5 flex flex-col gap-4 md:mb-7">
             <li className="flex items-center gap-3">
@@ -75,10 +81,13 @@ export default async function Page({ params }) {
           </ul>
         </div>
       </div>
-      <div>
+      <div className="flex flex-col gap-4 md:gap-8">
         <h2 className="text-center text-3xl font-semibold md:text-5xl">
-          Reserve today. Pay on arrival.
+          Reserve {name} today. Pay on arrival.
         </h2>
+        <Suspense fallback={<Spinner />}>
+          <Reservation cabin={cabin} />
+        </Suspense>
       </div>
     </div>
   );

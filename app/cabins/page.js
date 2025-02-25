@@ -3,12 +3,15 @@ import { Suspense } from "react";
 // Components
 import Spinner from "@/app/_components/Spinner";
 import CabinsList from "@/app/_components/cabins/CabinsList";
+import Filter from "@/app/_components/cabins/Filter";
 
 export const metadata = {
   title: "Cabins",
 };
 
-export default function CabinsPage() {
+export default function CabinsPage({ searchParams }) {
+  const filter = searchParams?.capacity ?? "all";
+
   return (
     <div className="pb-4 md:pb-8">
       <h1 className="text-4xl font-medium text-accent-400">
@@ -22,8 +25,11 @@ export default function CabinsPage() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-      <Suspense fallback={<Spinner />}>
-        <CabinsList />
+      <div className="mb-8 flex md:justify-end">
+        <Filter />
+      </div>
+      <Suspense key={filter} fallback={<Spinner />}>
+        <CabinsList filter={filter} />
       </Suspense>
     </div>
   );

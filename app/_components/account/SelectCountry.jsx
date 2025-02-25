@@ -1,5 +1,5 @@
 // Services
-import { getCountries } from "@/app/_services/countryService";
+import { getCountries } from "@/src/services/countryService";
 
 const SelectCountry = async ({ defaultCountry, name, id, className }) => {
   const countries = await getCountries();

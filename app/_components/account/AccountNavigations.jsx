@@ -10,10 +10,10 @@ import {
 } from "@heroicons/react/24/solid";
 
 // Libraries
-import { cn } from "@/app/_lib/cn";
+import cn from "@/src/lib/cn";
 
 // Components
-import SignOutButton from "./SignOutButton";
+import SignOutButton from "@/app/_components/SignOutButton";
 
 const navLinks = [
   {

@@ -2,7 +2,7 @@
 import {
   SideNavigation,
   MobileNavigation,
-} from "@/app/_components/AccountNavigations";
+} from "@/app/_components/account/AccountNavigations";
 
 export default function Layout({ children }) {
   return (
