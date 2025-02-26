@@ -11,6 +11,8 @@ import {
   createBooking,
   getBookedDatesByCabinId,
   updateBooking,
+  deleteBooking,
+  getBooking,
 } from "@/src/services/bookingService";
 
 export async function signInWithGoogle() {
@@ -141,4 +143,27 @@ export async function updateGuestBooking(bookingId, bookingDateData, formData) {
   revalidatePath("/account/reservations");
   revalidatePath(`/account/reservations/edit/${bookingId}`);
   redirect("/account/reservations");
+}
+
+export async function deleteGuestBooking(bookingId) {
+  const session = await auth();
+
+  if (!session)
+    throw new Error("You must be logged in to perform this action.");
+
+  const booking = await getBooking(bookingId);
+
+  if (!booking) throw new Error("Booking not found");
+
+  if (booking.guestID !== session.user.guestId)
+    throw new Error("You can only delete your own bookings");
+
+  if (booking.status === "checked-in")
+    throw new Error("Cannot delete a checked-in booking");
+
+  const deletedBooking = await deleteBooking(bookingId);
+
+  if (!deletedBooking) throw new Error("Failed to delete booking");
+
+  revalidatePath("/account/reservations");
 }

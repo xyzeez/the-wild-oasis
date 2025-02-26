@@ -121,17 +121,14 @@ export const updateBooking = async (id, updatedFields) => {
 
 export const deleteBooking = async (id) => {
   try {
-    const { data, error } = await supabase
-      .from("bookings")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("bookings").delete().eq("id", id);
 
     if (error) {
       console.error("Supabase error:", error);
       throw new Error("Booking could not be deleted");
     }
 
-    return data;
+    return true;
   } catch (error) {
     console.error("deleteBooking error:", error);
     throw new Error("Failed to delete booking");
