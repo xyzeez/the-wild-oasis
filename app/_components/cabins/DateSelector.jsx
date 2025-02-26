@@ -24,6 +24,7 @@ const DateSelector = ({ settings, cabin, bookedDates }) => {
     <div className="flex flex-col justify-between">
       <div className="pt-4 md:pr-4 md:pt-8">
         <DayPicker
+          className="text-primary-200"
           classNames={{
             months: "flex flex-col md:flex-row gap-4",
             month: "w-full",

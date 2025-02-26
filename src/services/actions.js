@@ -10,6 +10,7 @@ import { updateGuest } from "@/src/services/guestService";
 import {
   createBooking,
   getBookedDatesByCabinId,
+  updateBooking,
 } from "@/src/services/bookingService";
 
 export async function signInWithGoogle() {
@@ -88,4 +89,56 @@ export async function createGuestBooking(bookingDateData, formData) {
   revalidatePath("/account/reservations");
 
   redirect("/cabins/thankyou");
+}
+
+export async function updateGuestBooking(bookingId, bookingDateData, formData) {
+  const session = await auth();
+
+  if (!session)
+    throw new Error("You must be logged in to perform this action.");
+
+  const { numGuests, observations } = Object.fromEntries(formData);
+  const { startDate, endDate, cabinID } = bookingDateData;
+
+  if (isPast(new Date(startDate))) {
+    throw new Error("Cannot update booking with past dates");
+  }
+
+  const allBookedDates = await getBookedDatesByCabinId(cabinID);
+
+  const bookedDates = allBookedDates.filter((date) => {
+    const currentDate = new Date(date);
+    const currentStartDate = new Date(startDate);
+    const currentEndDate = new Date(endDate);
+
+    return (
+      !isSameDay(currentDate, currentStartDate) &&
+      !isSameDay(currentDate, currentEndDate)
+    );
+  });
+
+  const requestedStartDate = new Date(startDate);
+  const requestedEndDate = new Date(endDate);
+
+  const hasDateConflict = bookedDates.some(
+    (date) =>
+      isSameDay(date, requestedStartDate) || isSameDay(date, requestedEndDate)
+  );
+
+  if (hasDateConflict) {
+    throw new Error("Selected dates are not available for this cabin");
+  }
+
+  const booking = await updateBooking(bookingId, {
+    startDate,
+    endDate,
+    numGuests: Number(numGuests),
+    observations,
+  });
+
+  if (!booking) throw new Error("Failed to update booking");
+
+  revalidatePath("/account/reservations");
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+  redirect("/account/reservations");
 }

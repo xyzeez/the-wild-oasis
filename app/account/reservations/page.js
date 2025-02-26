@@ -1,14 +1,19 @@
 import Link from "next/link";
 
+// Services
+import { auth } from "@/src/services/auth";
+import { getBookings } from "@/src/services/bookingService";
+
 // Components
-import ReservationCard from "@/app/_components/ReservationCard";
+import ReservationCard from "@/app/_components/account/ReservationCard";
 
 export const metadata = {
   title: "Reservations",
 };
 
-export default function Page() {
-  const bookings = [];
+export default async function Page() {
+  const session = await auth();
+  const bookings = await getBookings(session.user.guestId);
 
   return (
     <div>
@@ -23,7 +28,7 @@ export default function Page() {
           </Link>
         </p>
       ) : (
-        <ul className="space-y-6">
+        <ul className="flex flex-wrap gap-6 *:shrink *:grow *:basis-60 lg:flex-col lg:*:basis-auto">
           {bookings.map((booking) => (
             <ReservationCard booking={booking} key={booking.id} />
           ))}

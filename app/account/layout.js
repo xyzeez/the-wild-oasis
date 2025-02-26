@@ -10,10 +10,10 @@ export default function Layout({ children }) {
       <div className="hidden md:block">
         <SideNavigation />
       </div>
-      <div className="fixed bottom-0 left-0 right-0 block md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-10 block md:hidden">
         <MobileNavigation />
       </div>
-      <div>{children}</div>
+      <div className="pb-4 lg:pb-8">{children}</div>
     </div>
   );
 }
