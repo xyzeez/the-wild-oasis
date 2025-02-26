@@ -1,10 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { isPast, isSameDay } from "date-fns";
 
 // Services
 import { auth, signIn, signOut } from "@/src/services/auth";
 import { updateGuest } from "@/src/services/guestService";
+import {
+  createBooking,
+  getBookedDatesByCabinId,
+} from "@/src/services/bookingService";
 
 export async function signInWithGoogle() {
   await signIn("google", { redirectTo: "/account" });
@@ -35,4 +41,51 @@ export async function updateGuestProfile(formData) {
   if (!updatedGuest) throw new Error("Failed to update profile");
 
   revalidatePath("/account/profile");
+}
+
+export async function createGuestBooking(bookingDateData, formData) {
+  const session = await auth();
+
+  if (!session)
+    throw new Error("You must be logged in to perform this action.");
+
+  const { numGuests, observations } = Object.fromEntries(formData);
+  const { startDate, endDate, cabinID } = bookingDateData;
+
+  if (isPast(new Date(startDate))) {
+    throw new Error("Cannot create booking with past dates");
+  }
+
+  const bookedDates = await getBookedDatesByCabinId(cabinID);
+  const requestedStartDate = new Date(startDate);
+  const requestedEndDate = new Date(endDate);
+
+  const hasDateConflict = bookedDates.some(
+    (date) =>
+      isSameDay(date, requestedStartDate) || isSameDay(date, requestedEndDate)
+  );
+
+  if (hasDateConflict) {
+    throw new Error("Selected dates are not available for this cabin");
+  }
+
+  const bookingData = {
+    ...bookingDateData,
+    observations,
+    numGuests: Number(numGuests),
+    totalPrice: bookingDateData.cabinPrice,
+    extrasPrice: 0,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "unconfirmed",
+    guestID: session.user.guestId,
+  };
+
+  const booking = await createBooking(bookingData);
+
+  if (!booking) throw new Error("Failed to create booking");
+
+  revalidatePath("/account/reservations");
+
+  redirect("/cabins/thankyou");
 }

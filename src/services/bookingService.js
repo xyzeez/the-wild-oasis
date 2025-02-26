@@ -8,9 +8,9 @@ export const getBookings = async (guestId) => {
     const { data: bookings, error } = await supabase
       .from("bookings")
       .select(
-        "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+        "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestID, cabinID, cabins(name, image)"
       )
-      .eq("guestId", guestId)
+      .eq("guestID", guestId)
       .order("startDate");
 
     if (error) {
@@ -54,7 +54,7 @@ export const getBookedDatesByCabinId = async (cabinId) => {
     const { data: bookings, error } = await supabase
       .from("bookings")
       .select("*")
-      .eq("cabinId", cabinId)
+      .eq("cabinID", cabinId)
       .or(`startDate.gte.${today},status.eq.checked-in`);
 
     if (error) {

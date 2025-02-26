@@ -1,17 +1,38 @@
 "use client";
 
 import Link from "next/link";
+import { differenceInDays } from "date-fns";
+
+// Services
+import { createGuestBooking } from "@/src/services/actions";
 
 // Context
 import { useReservation } from "@/src/context/ReservationContext";
 
+// Components
+import SubmitFormButton from "../SubmitFormButton";
+
 const ReservationForm = ({ cabin, user }) => {
-  const { range } = useReservation();
-  const { maxCapacity } = cabin;
+  const { range, resetRange } = useReservation();
+  const { maxCapacity, regularPrice, discount, id } = cabin;
+  const startDate = range.from;
+  const endDate = range.to;
+  const numNights = differenceInDays(endDate, startDate);
+  const cabinPrice = numNights * (regularPrice - discount);
+
+  const bookingData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinID: id,
+  };
+
+  const createBooking = createGuestBooking.bind(null, bookingData);
 
   return (
-    <div className="">
-      <div className="flex items-center justify-between bg-primary-800 px-3 py-2 text-primary-300 lg:px-16">
+    <div className="flex flex-col">
+      <div className="items-center justify-between bg-primary-800 px-3 py-2 text-primary-300 lg:px-16">
         <p className="flex flex-wrap gap-x-2 gap-y-1 text-sm lg:text-lg">
           Logged in as:
           <Link href="/account" className="italic text-accent-400 underline">
@@ -19,7 +40,13 @@ const ReservationForm = ({ cabin, user }) => {
           </Link>
         </p>
       </div>
-      <form className="flex flex-col gap-5 bg-primary-900 px-5 py-8 text-sm lg:px-16 lg:py-10 lg:text-lg">
+      <form
+        action={async (formData) => {
+          await createBooking(formData);
+          resetRange();
+        }}
+        className="flex flex-1 flex-col gap-5 bg-primary-900 px-5 py-8 text-sm lg:px-16 lg:py-10 lg:text-lg"
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
@@ -49,13 +76,14 @@ const ReservationForm = ({ cabin, user }) => {
             placeholder="Any pets, allergies, special requirements, etc.?"
           />
         </div>
-        <div className="flex items-center justify-end gap-6">
-          <p className="text-sm text-primary-300 lg:text-base">
-            Start by selecting dates
-          </p>
-          <button className="bg-accent-500 px-3 py-2 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300 lg:px-8 lg:py-4">
-            Reserve now
-          </button>
+        <div className="flex items-center justify-end">
+          {startDate && endDate ? (
+            <SubmitFormButton buttonLabel="Reserve now" />
+          ) : (
+            <p className="text-sm text-primary-300 lg:text-base">
+              Start by selecting dates
+            </p>
+          )}
         </div>
       </form>
     </div>

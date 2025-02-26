@@ -12,14 +12,14 @@ async function Reservation({ cabin }) {
   const session = await auth();
   const [settings, bookedDates] = await Promise.all([
     getSettings(),
-    // getBookedDatesByCabinId(cabin.id),
+    getBookedDatesByCabinId(cabin.id),
   ]);
 
   return (
-    <div className="grid min-h-[400px] grid-cols-1 gap-4 border border-primary-800 md:gap-0 xl:grid-cols-2">
+    <div className="grid min-h-[400px] grid-cols-1 grid-rows-1 gap-4 border border-primary-800 md:gap-0 xl:grid-cols-2">
       <DateSelector
         settings={settings}
-        // bookedDates={bookedDates}
+        bookedDates={bookedDates}
         cabin={cabin}
       />
       {session ? (

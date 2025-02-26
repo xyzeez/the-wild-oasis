@@ -1,33 +1,23 @@
 "use client";
 
-import { isWithinInterval } from "date-fns";
+import { differenceInDays, isPast, isSameDay } from "date-fns";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 // Context
 import { useReservation } from "@/src/context/ReservationContext";
 
-const isAlreadyBooked = (range, datesArr) => {
-  return (
-    range.from &&
-    range.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
-    )
-  );
-};
+// Libraries
+import isCabinBooked from "@/src/lib/isCabinBooked";
 
 const DateSelector = ({ settings, cabin, bookedDates }) => {
-  const { range, setRange, resetRange } = useReservation();
   const defaultClassNames = getDefaultClassNames();
+  const { range, setRange, resetRange } = useReservation();
+  const displayRange = isCabinBooked(range, bookedDates) ? {} : range;
 
-  //TODO: CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-
-  // SETTINGS
+  const { regularPrice, discount } = cabin;
+  const numNights = differenceInDays(displayRange.to, displayRange.from);
+  const cabinPrice = numNights * (regularPrice - discount);
   const { minBookingLength, maxBookingLength } = settings;
 
   return (
@@ -39,20 +29,25 @@ const DateSelector = ({ settings, cabin, bookedDates }) => {
             month: "w-full",
             month_grid: "w-full",
             day_button: "w-full",
-            selected: "bg-accent-500 text-white",
-            range_start: "bg-accent-500 rounded-l-full",
-            range_middle: "bg-accent-500",
-            range_end: "bg-accent-500 rounded-r-full",
+            selected: "bg-accent-500 text-white rounded-full",
+            range_start: "bg-accent-500 rounded-l-full rounded-r-none",
+            range_middle: "bg-accent-500 rounded-none",
+            range_end: "bg-accent-500 rounded-r-full rounded-l-none",
             month_caption: `${defaultClassNames.month_caption} pl-2 md:pl-4`,
           }}
           mode="range"
+          onSelect={setRange}
+          selected={displayRange}
           min={minBookingLength + 1}
           max={maxBookingLength}
           startMonth={new Date()}
           endMonth={new Date(new Date().getFullYear(), 5 * 12)}
           captionLayout="dropdown"
           numberOfMonths={2}
-          disabled={{ before: new Date() }}
+          disabled={(curDate) =>
+            isPast(curDate) ||
+            bookedDates.some((date) => isSameDay(date, curDate))
+          }
         />
       </div>
       <div className="flex h-auto flex-col items-center justify-between bg-accent-500 p-4 text-primary-800 md:h-[72px] md:flex-row md:px-8">
