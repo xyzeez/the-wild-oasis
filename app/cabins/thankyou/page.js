@@ -8,7 +8,7 @@ export default function Page() {
           Thank you for your reservation!
         </h1>
         <p className="mt-4 text-sm text-primary-300 sm:text-base">
-          We're excited to host you at The Wild Oasis
+          We&apos;re excited to host you at The Wild Oasis
         </p>
         <Link
           href="/account/reservations"
