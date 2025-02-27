@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+
+// Components
+import UserAccountButton from "./UserAccountButton";
 
 // Libraries
 import cn from "@/src/lib/cn";
@@ -55,14 +59,9 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Link
-            href="/account"
-            className={cn("transition-colors hover:text-accent-400", {
-              "text-accent-400": pathname.startsWith("/account"),
-            })}
-          >
-            Guest area
-          </Link>
+          <SessionProvider>
+            <UserAccountButton />
+          </SessionProvider>
         </li>
       </ul>
     </nav>
