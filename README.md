@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <h1>The Wild Oasis 🌿</h1>
+  <p align="center">
+    A demo luxury cabin booking platform built with Next.js, Tailwind CSS, and Supabase
+  </p>
+    <!-- Project Links -->
+  <p align="center">
+    <br />
+    <a href="https://xyz-the-wild-oasis.netlify.app" target="_blank">View Demo</a>
+    ·
+    <a href="https://github.com/xyzeez/the-wild-oasis/issues/new?template=bug_report.md" target="_blank">Report Bug</a>
+    ·
+    <a href="https://github.com/xyzeez/the-wild-oasis/issues/new?template=feature_request.md" target="_blank">Request Feature</a>
+  </p>
+  <div align="center">
+    <img src="./.github/screenshot.png" alt="The Wild Oasis Screenshot" width="100%" />
+  </div>
+</div>
 
-## Getting Started
+## 📋 Table of Contents
 
-First, run the development server:
+- [About](#about)
+- [Built With](#built-with)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Deployment](#deployment)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🎯 About
+
+The Wild Oasis is a demo project showcasing a luxury cabin booking platform where guests can explore available cabins, make reservations, and manage their bookings. Built with modern web technologies, it offers an intuitive interface for users to find their perfect cabin getaway, check availability through an interactive calendar, and handle their reservations efficiently.
+
+## 🛠 Built With
+
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+- ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![NextAuth.js](https://img.shields.io/badge/NextAuth.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+
+## ✨ Features
+
+- Interactive cabin browsing and detailed cabin views
+- Real-time availability calendar
+- Secure user authentication and guest accounts
+- Flexible booking management system
+  - Create new reservations
+  - Modify existing bookings
+  - Cancel reservations
+- Smart date selection with booking restrictions
+- Guest capacity management
+- Automated price calculations with discount support
+- Responsive design for all devices
+- User-friendly booking interface
+- Personal dashboard for managing reservations
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Supabase account
+
+### Installation
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/xyzeez/the-wild-oasis
+   cd the-wild-oasis
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up environment variables
+
+   ```bash
+   cp .env.local
+   ```
+
+4. Start the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SITE_URL=your_site_url
+AUTH_SECRET=your_auth_secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Deployment
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The application can be deployed to Vercel or any other hosting platform that supports Next.js applications. To build the project:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run build
+```
 
-## Learn More
+Then start the production server:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm start
+```
