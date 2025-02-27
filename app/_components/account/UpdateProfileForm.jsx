@@ -53,6 +53,7 @@ const UpdateProfileForm = async () => {
         <input
           defaultValue={session?.user?.nationalID}
           name="nationalID"
+          required
           className="w-full rounded-sm bg-primary-200 px-3 py-2 text-primary-800 shadow-sm md:px-5 md:py-3"
         />
       </div>

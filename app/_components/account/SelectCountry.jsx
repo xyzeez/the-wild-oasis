@@ -11,6 +11,7 @@ const SelectCountry = async ({ defaultCountry, name, id, className }) => {
       name={name}
       id={id}
       defaultValue={`${defaultCountry}%${flag}`}
+      required
       className={className}
     >
       <option value="">Select country...</option>
