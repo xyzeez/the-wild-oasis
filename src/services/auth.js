@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
 // Services
-import { getGuest, createGuest } from "./guestService";
+import { getGuest, createGuest, updateGuest } from "./guestService";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
@@ -15,6 +15,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           await createGuest({
             fullname: user.name,
             email: user.email,
+            lastLogin: new Date().toISOString(),
+          });
+        } else {
+          await updateGuest(userExists.id, {
+            lastLogin: new Date().toISOString(),
           });
         }
         return true;
@@ -29,6 +34,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.nationality = guest.nationality;
       session.user.countryFlag = guest.countryFlag;
       session.user.nationalID = guest.nationalID;
+      session.user.registeredAt = guest.created_at;
+      session.user.lastLogin = guest.lastLogin;
 
       return session;
     },
