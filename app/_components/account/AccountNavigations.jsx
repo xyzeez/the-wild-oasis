@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  ArrowLeftStartOnRectangleIcon,
   CalendarDaysIcon,
   HomeIcon,
   UserIcon,
@@ -13,7 +12,10 @@ import {
 import cn from "@/src/lib/cn";
 
 // Components
-import SignOutButton from "@/app/_components/SignOutButton";
+import {
+  DesktopSignOutButton,
+  MobileSignOutButton,
+} from "@/app/_components/SignOutButton";
 
 const navLinks = [
   {
@@ -50,7 +52,7 @@ export const MobileNavigation = () => {
           </li>
         ))}
         <li className="text-red-600">
-          <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />
+          <MobileSignOutButton />
         </li>
       </ul>
     </nav>
@@ -80,7 +82,7 @@ export const SideNavigation = () => {
           </li>
         ))}
         <li className="mt-auto">
-          <SignOutButton />
+          <DesktopSignOutButton />
         </li>
       </ul>
     </nav>
